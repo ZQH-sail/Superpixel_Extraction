@@ -111,7 +111,7 @@ def main():
 
     save_patches(sp_list,labels,counter,csv)
     if args.shutdown:
-        subprocess.Popen('sudo shutdown -h now')
+        subprocess.call(['shutdown', '-h', 'now'])
         
 if __name__ == '__main__':
     main()
