@@ -6,7 +6,7 @@ import glob
 # import sys
 import pandas as pd
 from tqdm import tqdm
-import os
+import subprocess
 from argparse import ArgumentParser
 
 
@@ -41,7 +41,7 @@ def main():
     parser.add_argument('-b','--band_path',help='Path to directory to save new bands', required=True)
     parser.add_argument('-p','--patch_path',help='Path to directory to save patches', required=True)
     parser.add_argument('-c','--counter',help='Initial value of counter. Use if save path already has patches saved', required=False, default=0)
-
+    parser.add_srgument('-s','--shutdown',help='Shutdown VM after script execution completes', required=False, default=None)
     args = parser.parse_args()
     
     im = args.image_path
@@ -110,7 +110,9 @@ def main():
             sp_list = []
 
     save_patches(sp_list,labels,counter,csv)
-
+    if args.shutdown:
+        subprocess.Popen('sudo shutdown -h now')
+        
 if __name__ == '__main__':
     main()
 
